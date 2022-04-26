@@ -58,6 +58,7 @@
     padding-right: 56px;
     border-radius: 10px;
     margin-bottom: 18px;
+    padding-left: 10px;
 }
 
 .icon {
@@ -122,4 +123,27 @@
     margin-bottom: 5px;
     background-color: rgb(9, 40, 53);
     color: white;
+}
+
+.search {
+    position: relative;
+}
+
+.search_area {
+    width: 230px;
+    height: 40px;
+    padding-right: 56px;
+    padding-left: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.search_text {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    font-size: 18px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
 }

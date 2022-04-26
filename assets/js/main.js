@@ -1,6 +1,7 @@
 let removeText = document.querySelector(".remove_text")
 let text = document.querySelector(".add_text")
 let btn = document.querySelector(".btn")
+let arr = []
 removeText.addEventListener("click", () => {
     text.value = ""
 })
@@ -21,6 +22,11 @@ btn.addEventListener("click", () => {
 
         const checkicon1 = document.createElement("i")
         const checkicon2 = document.createElement("i")
+        const edit_icon = document.createElement("i")
+        edit_icon.className = "fa-regular fa-pen-to-square"
+        edit_icon.style.position = "absolute"
+        edit_icon.style.right = "70px"
+        edit_icon.style.top = "9px"
         checkicon2.className = "fa-solid fa-circle-check"
         checkicon2.style.display = "none"
         checkicon1.className = "fa-regular fa-circle-check"
@@ -63,10 +69,41 @@ btn.addEventListener("click", () => {
         li.style.padding = "8px"
         li.style.marginBottom = "8px"
         li.style.position = "relative"
+        li.style.paddingRight = "90px";
+        li.style.textOverflow = "ellipsis"
+        li.style.overflow = "hidden"
+        li.style.whiteSpace = "nowrap"
         li.append(icon2)
         li.append(icon)
         li.append(checkicon1)
         li.append(checkicon2)
+
+        li.append(edit_icon)
+
+
+        edit_icon.addEventListener("click", () => {
+            const edit_input = document.createElement("input")
+            edit_input.className = "edit_input"
+            edit_input.style.position = "absolute"
+            edit_input.style.top = "0px"
+            edit_input.style.left = "0px"
+            edit_input.style.width = "100%"
+            edit_input.style.background = "white"
+            edit_input.style.height = "43px"
+            li.append(edit_input)
+            edit_input.value = li.innerText
+            edit_input.addEventListener("keyup", (e) => {
+                if (e.keyCode === 13) {
+                    li.innerText = e.path[0].value
+                    li.append(icon2)
+                    li.append(icon)
+                    li.append(checkicon1)
+                    li.append(checkicon2)
+                    li.append(edit_icon)
+                }
+            })
+        })
+
 
         checkicon1.style.position = "absolute"
         checkicon1.style.top = "10px"
@@ -87,6 +124,7 @@ btn.addEventListener("click", () => {
         icon.style.right = "30px"
         icon.addEventListener("click", (e) => {
             e.target.parentElement.remove()
+            arr.splice(arr.indexOf(e.target.parentElement), 1)
             if (ul.childNodes.length == 0) {
                 ulDiv.style.display = "none"
             }
@@ -102,6 +140,7 @@ btn.addEventListener("click", () => {
             }
         })
         ul.append(li)
+        arr.push(li)
         text.value = ""
 
     }
@@ -120,4 +159,15 @@ second.addEventListener('click', () => {
 let resert = document.querySelector(".resert_btn")
 resert.addEventListener("click", () => {
     window.location.reload()
+})
+let search = document.querySelector(".search_area")
+search.addEventListener("keyup", () => {
+    let arr1 = arr.filter(x => {
+        return x.innerText.toLowerCase().includes(search.value.toLowerCase())
+    })
+
+    ul.innerHTML = "";
+    arr1.forEach(x => {
+        ul.append(x)
+    })
 })
